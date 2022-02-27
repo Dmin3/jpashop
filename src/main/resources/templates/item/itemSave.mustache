@@ -1,0 +1,48 @@
+{{>layouts/header}}
+{{>layouts/nav}}
+<!-- Page content-->
+<div class="container mt-5">
+    <form>
+        <div class="form-group">
+            <label for="name">상품 이름</label>
+            <input type="text" class="form-control" id="name" placeholder="상품이름을 입력해주세요.">
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="price">상품 가격</label>
+                <input type="number" class="form-control" id="price" placeholder="상품가격을 입력해주세요.">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="password">상품 수량</label>
+                <input type="number" class="form-control" id="stockQuantity" placeholder="상품수량을 입력해주세요.">
+            </div>
+            <div class="form-group col-md-2">
+                <select name="dtype" id="dtype"  class="form-control">
+                  <option value="C">Computer</option>
+                  <option value="T">TV</option>
+                  <option value="P">Phone</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="company">회사</label>
+                <input type="text" class="form-control" id="company">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="etc">상품 내용</label>
+                <textarea placeholder="내용을 입력해주세요" class="form-control" id="etc"></textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="agreeCheck">
+                <label class="form-check-label" for="agreeCheck">
+                    개인정보 동의
+                </label>
+            </div>
+        </div>
+        <button type="button" class="btn btn-primary" id="btn-itemSave">상품등록</button>
+    </form>
+</div>
+{{>layouts/footer}}
