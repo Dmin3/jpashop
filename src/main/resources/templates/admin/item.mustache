@@ -1,0 +1,28 @@
+{{>layouts/header}}
+{{>layouts/nav}}
+<div class="container-fluid py-5">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">이름</th>
+            <th scope="col">가격</th>
+            <th scope="col">수량</th>
+            <th scope="col">회사</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{#item}}
+            <tr>
+                <th scope="row">{{id}}</th>
+                <td>{{name}}</td>
+                <td>{{price}}</td>
+                <td>{{stockQuantity}}</td>
+                <td>{{company}}</td>
+            </tr>
+        {{/item}}
+        </tbody>
+    </table>
+</div>
+
+{{>layouts/footer}}
