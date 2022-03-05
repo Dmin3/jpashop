@@ -1,0 +1,23 @@
+{{>layouts/header}}
+{{>layouts/nav}}
+<!-- section card-->
+<div class="container py-5">
+    <div class="row">
+                {{#item}}
+        <div class="col-md-4">
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <p hidden >{{id}}</p>
+                    <h5 class="card-title">{{name}}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">{{company}}</h6>
+                    <p class="card-text">내용 : {{etc}}</p>
+                    <p class="card-text">가격 : {{price}}</p>
+                    <button class="btn btn-success">주문하기</button>
+                    <button id="btn-orderItem" class="btn btn-dark">장바구니 담기</button>
+                </div>
+            </div>
+        </div>
+                {{/item}}
+    </div>
+</div>
+{{>layouts/footer}}
