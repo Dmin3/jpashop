@@ -2,6 +2,7 @@ package jpabook.jpashop.repository;
 
 import jpabook.jpashop.domain.Member;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -32,6 +33,12 @@ public class MemberRepository {
     public List<Member> findByName(String name) {
         return em.createQuery("select m from Member m where m.name = :name", Member.class)
                 .setParameter("name", name).getResultList();
+    }
+
+    //회원 이름으로 단건 조회
+    public Member findOneByName(String name) {
+       return em.createQuery("select m from Member m where m.name = :name", Member.class)
+                .setParameter("name", name).getSingleResult();
     }
 
 
