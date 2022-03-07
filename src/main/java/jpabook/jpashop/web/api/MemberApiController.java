@@ -1,26 +1,59 @@
 package jpabook.jpashop.web.api;
 
 import jpabook.jpashop.domain.Member;
+import jpabook.jpashop.repository.MemberRepository;
 import jpabook.jpashop.service.MemberService;
-import jpabook.jpashop.web.dto.MemberSaveRequestDto;
+import jpabook.jpashop.service.OrderItemService;
+import jpabook.jpashop.service.OrderService;
+import jpabook.jpashop.web.dto.MemberRequestDto;
+import jpabook.jpashop.web.dto.MemberResponseDto;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpSession;
 
 @RestController
 @RequiredArgsConstructor
 public class MemberApiController {
 
     private final MemberService memberService;
+    private final MemberRepository memberRepository;
+    private final OrderItemService orderItemService;
 
-    @PostMapping("/api/v1/save")
-    public ResponseEntity save(@RequestBody MemberSaveRequestDto requestDto) {
-        memberService.join(requestDto);
-        return new ResponseEntity<>("회원가입 성공했습니다.",HttpStatus.OK);
+    //회원가입
+    @PostMapping("/api/v1/member-save")
+    public MemberResponseDto save(@RequestBody MemberRequestDto requestDto) {
+        Long id = memberService.join(requestDto);
+        Member member = memberRepository.find(id);
+        return new MemberResponseDto(member.getId(), member.getName(), member.getAddress());
     }
+
+    //로그인
+    @PostMapping("/api/v1/member-login")
+    public MemberResponseDto login(@RequestBody MemberRequestDto requestDto, HttpSession session) {
+
+        if (memberService.login(requestDto)){
+            Member member = memberRepository.findOneByName(requestDto.getName());
+            session.setAttribute("member", member);
+        }
+        Member member = (Member) session.getAttribute("member");
+
+        return new MemberResponseDto(member.getId(), member.getName(), member.getAddress());
+    }
+
+
+
+
+    //장바구니 담기
+//    @PostMapping("/api/v1/orderItem/")
+//    public String orderItem(@PathVariable Long memberId, @RequestBody Long id) {
+//
+//        orderItemService.save(id,memberId);
+//
+//
+//        return "장바구니 추가 완료";
+//    }
+
 
 
 }
