@@ -5,12 +5,15 @@ import jpabook.jpashop.domain.item.Item;
 import jpabook.jpashop.domain.item.Phone;
 import jpabook.jpashop.domain.item.Tv;
 import jpabook.jpashop.repository.ItemRepository;
+import jpabook.jpashop.web.dto.ItemFindAllResponseDto;
 import jpabook.jpashop.web.dto.ItemSaveRequestDto;
+import jpabook.jpashop.web.dto.MemberItemAllFindResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional(readOnly = true)
@@ -36,18 +39,39 @@ public class ItemService {
 
         switch (requestDto.getDtype()){
             case "T":
-               return new Tv(requestDto.getCompany(), requestDto.getEtc());
+               return Tv.builder()
+                       .name(requestDto.getName())
+                       .company(requestDto.getCompany())
+                       .price(requestDto.getPrice())
+                       .stockQuantity(requestDto.getStockQuantity()).build();
             case "C":
-                return new Computer(requestDto.getCompany(), requestDto.getEtc());
+                return Computer.builder()
+                                .name(requestDto.getName())
+                            .company(requestDto.getCompany())
+                            .price(requestDto.getPrice())
+                            .stockQuantity(requestDto.getStockQuantity()).build();
+
             case "P":
-                return new Phone(requestDto.getCompany(), requestDto.getEtc());
+                return Phone.builder()
+                        .name(requestDto.getName())
+                        .company(requestDto.getCompany())
+                        .price(requestDto.getPrice())
+                        .stockQuantity(requestDto.getStockQuantity()).build();
 
         }
         return null;
     }
 
-    public List<Item> findItems() {
-        return itemRepository.findAll();
+    public List<ItemFindAllResponseDto> findItems() {
+        List<Item> items = itemRepository.findAll();
+        List<ItemFindAllResponseDto> collect = items.stream().map(i -> new ItemFindAllResponseDto(i.getId(),i.getName(), i.getPrice(), i.getStockQuantity(), i.getCompany())).collect(Collectors.toList());
+        return collect;
+    }
+
+    public List<MemberItemAllFindResponseDto> findMemberItems() {
+        List<Item> items = itemRepository.findAll();
+        List<MemberItemAllFindResponseDto> collect = items.stream().map(i -> new MemberItemAllFindResponseDto(i.getId(), i.getName(), i.getPrice(), i.getCompany())).collect(Collectors.toList());
+        return collect;
     }
 
     public Item findOne(Long itemId) {
