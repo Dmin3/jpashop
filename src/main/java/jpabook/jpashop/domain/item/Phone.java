@@ -1,6 +1,7 @@
 package jpabook.jpashop.domain.item;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,10 +14,11 @@ import javax.persistence.Entity;
 @AllArgsConstructor
 public class Phone extends Item{
 
-    private String company;
-    private String etc;
-
-    public Phone() {
-
+    @Builder
+    public Phone(String name, int price, int stockQuantity,String company) {
+        setName(name);
+        setPrice(price);
+        setStockQuantity(stockQuantity);
+        setCompany(company);
     }
 }

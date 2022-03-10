@@ -1,6 +1,7 @@
 package jpabook.jpashop.domain.item;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,11 +14,11 @@ import javax.persistence.Entity;
 @AllArgsConstructor
 public class Computer extends Item {
 
-    private String company;
-    private String etc;
-
-
-    public Computer() {
-
+    @Builder
+    public Computer(String name, int price, int stockQuantity,String company) {
+        setName(name);
+        setPrice(price);
+        setStockQuantity(stockQuantity);
+        setCompany(company);
     }
 }
