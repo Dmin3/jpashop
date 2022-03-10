@@ -16,11 +16,11 @@ public class InitDb {
 
     private final InitService initService;
 
-//    @PostConstruct
-//    public void init() {
-//        initService.dbInit1();
+    @PostConstruct
+    public void init() {
+        initService.dbInit1();
 //        initService.dbInit2();
-//    }
+    }
 
     @Component
     @Transactional
@@ -31,66 +31,28 @@ public class InitDb {
 
         public void dbInit1() {
 
-            Member member1 = Member.builder()
-                    .name("userA")
-                    .address(new Address("서울", "1", "12"))
-                    .build();
-            em.persist(member1);
+            Member admin = Member.builder().name("admin").password("1234").build();
+            em.persist(admin);
 
-            Computer computer1 = new Computer("삼성", "11");
-            computer1.setName("JPA Computer1");
-            computer1.setPrice(1000);
-            computer1.setStockQuantity(100);
-            em.persist(computer1);
+            Item item = Computer.builder().name("컴퓨터").price(5000).stockQuantity(10).company("삼성").build();
+            em.persist(item);
 
-            Computer computer2 = new Computer("애플", "11");
-            computer2.setName("JPA Computer2");
-            computer2.setPrice(5000);
-            computer2.setStockQuantity(50);
-            em.persist(computer2);
+            Item apple = Computer.builder().name("애플컴퓨터").price(50000).stockQuantity(10).company("애플").build();
+            em.persist(apple);
 
-            OrderItem orderItem1 = OrderItem.createOrderItem(computer1, computer1.getPrice(), 1);
-            OrderItem orderItem2 = OrderItem.createOrderItem(computer2, computer2.getPrice(), 2);
+            //주문 클릭 시
+            OrderItem orderItem = OrderItem.createOrderItem(item, item.getPrice(), 3);
+            em.persist(orderItem);
 
-            Delivery delivery = Delivery.builder()
-                    .address(member1.getAddress())
-                    .build();
-
-            Order order = Order.createOrder(member1, delivery, orderItem1, orderItem2);
-            em.persist(order);
+            OrderItem orderItem1 = OrderItem.createOrderItem(apple, apple.getPrice(), 2);
+            em.persist(orderItem1);
 
 
         }
 
         public void dbInit2() {
 
-            Member member2 = Member.builder()
-                    .name("userB")
-                    .address(new Address("부산", "2", "23"))
-                    .build();
-            em.persist(member2);
 
-            Computer computer1 = new Computer("삼성", "11");
-            computer1.setName("Spring Computer1");
-            computer1.setPrice(50000);
-            computer1.setStockQuantity(100);
-            em.persist(computer1);
-
-            Computer computer2 = new Computer("애플", "11");
-            computer2.setName("Spring Computer2");
-            computer2.setPrice(10000);
-            computer2.setStockQuantity(20);
-            em.persist(computer2);
-
-            OrderItem orderItem1 = OrderItem.createOrderItem(computer1, computer1.getPrice(), 1);
-            OrderItem orderItem2 = OrderItem.createOrderItem(computer2, computer2.getPrice(), 2);
-
-            Delivery delivery = Delivery.builder()
-                    .address(member2.getAddress())
-                    .build();
-
-            Order order = Order.createOrder(member2, delivery, orderItem1, orderItem2);
-            em.persist(order);
 
 
         }
