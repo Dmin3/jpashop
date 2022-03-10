@@ -23,7 +23,7 @@ public class OrderItemRepository {
     }
 
     public List<OrderItem> findAll() {
-        return em.createQuery("select oi from OrderItem oi", OrderItem.class).getResultList();
+        return em.createQuery("select oi from OrderItem oi join fetch oi.item", OrderItem.class).getResultList();
     }
 
 

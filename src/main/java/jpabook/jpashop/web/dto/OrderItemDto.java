@@ -9,8 +9,9 @@ public class OrderItemDto {
 
     private Long id;
     private String name;
-    private String company;
     private int price;
+    private int count;
+    private String company;
 
 
 }
