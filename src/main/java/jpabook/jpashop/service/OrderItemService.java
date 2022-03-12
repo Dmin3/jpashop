@@ -1,44 +1,41 @@
 package jpabook.jpashop.service;
 
-import jpabook.jpashop.domain.Member;
-import jpabook.jpashop.domain.Order;
+
 import jpabook.jpashop.domain.OrderItem;
 import jpabook.jpashop.domain.item.Item;
 import jpabook.jpashop.repository.ItemRepository;
-import jpabook.jpashop.repository.MemberRepository;
 import jpabook.jpashop.repository.OrderItemRepository;
-import jpabook.jpashop.repository.OrderRepository;
 import jpabook.jpashop.web.dto.OrderItemDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class OrderItemService {
 
-    private final int count = 1;
+    public static final int COUNT = 1;
 
     private final OrderItemRepository orderItemRepository;
-    private final MemberRepository memberRepository;
     private final ItemRepository itemRepository;
 
-    //장바구니 담기
-    public void save(Long id, Long memberId){
 
-        Member member = memberRepository.find(memberId);
-        Item item = itemRepository.find(id);
 
-        OrderItem orderItem = OrderItem.createOrderItem(member, item, item.getPrice(), count);
-
-        orderItemRepository.save(orderItem);
-
+    public List<OrderItemDto> findAll() {
+        List<OrderItem> orderItem = orderItemRepository.findAll();
+        List<OrderItemDto> collect = orderItem.stream().map(oi -> new OrderItemDto(oi.getId(), oi.getItem().getName(), oi.getOrderPrice(), oi.getCount(), oi.getItem().getCompany())).collect(Collectors.toList());
+        return collect;
     }
 
 
-
-
-
-
+    @Transactional
+    public Long save(Long id) {
+        Item item = itemRepository.find(id);
+        OrderItem orderItem = OrderItem.createOrderItem(item, item.getPrice(), COUNT);
+        return orderItemRepository.save(orderItem);
+    }
 }
