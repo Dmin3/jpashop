@@ -22,21 +22,19 @@ public class OrderItem {
     @JoinColumn(name = "order_id")
     private Order order;
 
-    private int orderPrice;
-
     private int count;
 
-    @Builder
-    public OrderItem(Order order,Item item, int orderPrice, int count) {
-        this.order = order;
-        this.item = item;
-        this.orderPrice = orderPrice;
-        this.count = count;
-    }
+    private int orderPrice;
+
+
 
     //==생성 메소드==//
     public static OrderItem createOrderItem(Item item, int orderPrice, int count) {
-        OrderItem orderItem = OrderItem.builder().item(item).orderPrice(orderPrice).count(count).build();
+        OrderItem orderItem = new OrderItem();
+        orderItem.setItem(item);
+        orderItem.setOrderPrice(item.getPrice());
+        orderItem.setCount(count);
+
         item.removeStock(count);
         return orderItem;
     }
