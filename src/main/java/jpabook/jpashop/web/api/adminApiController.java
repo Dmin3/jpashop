@@ -1,6 +1,7 @@
 package jpabook.jpashop.web.api;
 
 import jpabook.jpashop.domain.Member;
+import jpabook.jpashop.domain.OrderItem;
 import jpabook.jpashop.repository.MemberRepository;
 import jpabook.jpashop.service.ItemService;
 import jpabook.jpashop.service.MemberService;
@@ -45,16 +46,26 @@ public class adminApiController {
 
     //상품 전체조회
     @GetMapping("/v1/item-findAll")
-    public List<ItemFindAllResponseDto> ItemFindAll() {
+    public List<ItemDto> ItemFindAll() {
        return itemService.findItems();
     }
 
-    //주문상품 조회
+//    주문상품 조회
     @GetMapping("/v1/orderItem-findAll")
     public List<OrderItemDto> orderItemFindAll() {
         List<OrderItemDto> all = orderItemService.findAll();
         return all;
     }
+
+    //장바구니 담기
+    @PostMapping("/v1/orderItem-save/{id}")
+    public Long orderItemSave(@PathVariable("id") Long id) {
+
+        return orderItemService.save(id);
+    }
+
+
+
 
 
 
