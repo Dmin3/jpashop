@@ -46,11 +46,28 @@ public class adminApiController {
 
     //상품 전체조회
     @GetMapping("/v1/item-findAll")
-    public List<ItemDto> ItemFindAll() {
+    public List<ItemDto> itemFindAll() {
        return itemService.findItems();
     }
 
-//    주문상품 조회
+    //상품 수정
+    @PostMapping("/v1/item-update/{id}")
+    public ItemDto itemUpdate(@PathVariable("id") Long id, @RequestBody ItemDto itemDto){
+
+        return itemService.update(id, itemDto);
+
+    }
+
+    //상품 삭제
+    @DeleteMapping("/v1/item-remove/{id}")
+    public Long itemRemove(@PathVariable("id") Long id){
+
+        itemService.delete(id);
+        return id;
+    }
+
+
+    //주문상품 조회
     @GetMapping("/v1/orderItem-findAll")
     public List<OrderItemDto> orderItemFindAll() {
         List<OrderItemDto> all = orderItemService.findAll();
@@ -58,10 +75,10 @@ public class adminApiController {
     }
 
     //장바구니 담기
-    @PostMapping("/v1/orderItem-save/{id}")
-    public Long orderItemSave(@PathVariable("id") Long id) {
+    @PostMapping("/v1/orderItem-save")
+    public Long orderItemSave(@RequestBody OrderItemSaveDto dto) {
 
-        return orderItemService.save(id);
+        return orderItemService.save(dto.getId(), dto.getCount());
     }
 
 
