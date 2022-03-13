@@ -1,0 +1,61 @@
+
+{{>layouts/header}}
+{{>layouts/nav}}
+<!-- Container -->
+<div class="container-fluid">
+    <div class="row mt-5">
+        {{#item}}
+        <div class="col-2">
+            <p hidden id="id">{{id}}</p>
+            <button type="button" class="m-3 p-4 btn btn-outline-dark btn-light btn-lg" data-toggle="modal" data-target="#exampleModal"><h1>{{name}}</h1></button>
+        </div>
+        {{/item}}
+    </div>
+        <div class="row mt-5">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">이름</th>
+                    <th scope="col">가격</th>
+                    <th scope="col">수량</th>
+                    <th scope="col">회사</th>
+                </tr>
+                </thead>
+                <tbody>
+                {{#orderItem}}
+                <tr>
+                    <th scope="row">{{id}}</th>
+                    <td>{{name}}</td>
+                    <td>{{price}}</td>
+                    <td>{{count}}</td>
+                    <td>{{company}}</td>
+                </tr>
+                {{/orderItem}}
+                </tbody>
+            </table>
+        </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <p id="id" hidden></p>
+                <h5 class="modal-title">수량을 입력해주세요.</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input type="number" id="count">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+                <button type="button" class="btn btn-primary" id="orderItem">주문하기</button>
+            </div>
+        </div>
+    </div>
+</div>
+{{>layouts/footer}}
