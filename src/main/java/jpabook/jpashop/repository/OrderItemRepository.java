@@ -14,8 +14,9 @@ public class OrderItemRepository {
 
     private final EntityManager em;
 
-    public void save(OrderItem orderItem){
+    public Long save(OrderItem orderItem){
         em.persist(orderItem);
+        return orderItem.getId();
     }
 
     public OrderItem find(Long orderItemId) {

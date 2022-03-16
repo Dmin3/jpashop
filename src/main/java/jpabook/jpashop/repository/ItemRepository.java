@@ -29,4 +29,8 @@ public class ItemRepository {
     }
 
 
+    //상품 삭제
+    public void remove(Item item) {
+        em.remove(item);
+    }
 }

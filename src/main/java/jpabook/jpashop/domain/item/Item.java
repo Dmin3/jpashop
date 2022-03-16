@@ -1,32 +1,29 @@
 package jpabook.jpashop.domain.item;
 
-import jpabook.jpashop.domain.CategoryItem;
 import jpabook.jpashop.exception.NotEnoughStockException;
+import jpabook.jpashop.web.dto.ItemDto;
 import lombok.*;
-
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "dtype")
-@Getter @Setter
+@Getter
+@Setter
 public abstract class Item {
 
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue
     @Column(name = "item_id")
     private Long id;
 
     private String name;
 
-    @OneToMany(mappedBy = "item")
-    private List<CategoryItem> categoryItem = new ArrayList<>();
-
     private int price;
 
     private int stockQuantity;
 
+    private String company;
 
     //==비즈니스 로직==//
 
@@ -43,8 +40,5 @@ public abstract class Item {
         }
         this.stockQuantity = nmg;
     }
-
-
-
 
 }

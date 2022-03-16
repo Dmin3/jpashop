@@ -19,7 +19,6 @@ public class InitDb {
     @PostConstruct
     public void init() {
         initService.dbInit1();
-//        initService.dbInit2();
     }
 
     @Component
@@ -41,13 +40,11 @@ public class InitDb {
             em.persist(apple);
 
             //주문 클릭 시
-            OrderItem orderItem = OrderItem.createOrderItem(item, item.getPrice(), 3);
-            em.persist(orderItem);
-
-            OrderItem orderItem1 = OrderItem.createOrderItem(apple, apple.getPrice(), 2);
-            em.persist(orderItem1);
-
-
+//            OrderItem orderItem = OrderItem.createOrderItem(item, item.getPrice(), 3);
+//            em.persist(orderItem);
+//
+//            OrderItem orderItem1 = OrderItem.createOrderItem(apple, apple.getPrice(), 2);
+//            em.persist(orderItem1);
         }
 
         public void dbInit2() {

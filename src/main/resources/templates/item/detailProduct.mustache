@@ -3,21 +3,32 @@
 <!-- section card-->
 <div class="container py-5">
     <div class="row">
-                {{#item}}
         <div class="col-md-4">
-            <div class="card" style="width: 18rem;">
-                <div class="card-body">
-                    <p hidden >{{id}}</p>
-                    <h5 class="card-title">{{name}}</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">{{company}}</h6>
-                    <p class="card-text">내용 : {{etc}}</p>
-                    <p class="card-text">가격 : {{price}}</p>
-                    <button class="btn btn-success">주문하기</button>
-                    <button id="btn-orderItem" class="btn btn-dark">장바구니 담기</button>
+            <form>
+                <div class="form-group">
+                    <label for="id">상품 번호 : </label>
+                    <input type="number" class="form=control" id="id" value="{{item.id}}" readonly>
                 </div>
-            </div>
+                <div class="form-group">
+                    <label for="id">상품명 : </label>
+                    <input type="text" class="form=control" id="name" value="{{item.name}}">
+                </div>
+                <div class="form-group">
+                    <label for="id">상품 가격 : </label>
+                    <input type="number" class="form=control" id="price" value="{{item.price}}">
+                </div>
+                <div class="form-group">
+                    <label for="id">상품 수량 : </label>
+                    <input type="number" class="form=control" id="stockQuantity" value="{{item.stockQuantity}}">
+                </div>
+                <div class="form-group">
+                    <label for="id">제조사 : </label>
+                    <input type="text" class="form=control" id="company" value="{{item.company}}">
+                </div>
+            </form>
+                <button type="button" id="btn-itemUpdate" class="btn btn-success">상품 수정하기</button>
+                <button type="button" id="btn-itemRemove" class="btn btn-danger">상품 삭제하기</button>
         </div>
-                {{/item}}
     </div>
 </div>
 {{>layouts/footer}}

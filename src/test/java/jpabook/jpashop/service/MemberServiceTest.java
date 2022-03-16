@@ -3,7 +3,7 @@ package jpabook.jpashop.service;
 import jpabook.jpashop.domain.Address;
 import jpabook.jpashop.domain.Member;
 import jpabook.jpashop.repository.MemberRepository;
-import jpabook.jpashop.web.dto.MemberSaveRequestDto;
+import jpabook.jpashop.web.dto.MemberRequestDto;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,7 @@ class MemberServiceTest {
     @Test
     public void 회원가입() throws Exception {
         //given
-        MemberSaveRequestDto requestDto = MemberSaveRequestDto.builder()
+        MemberRequestDto requestDto = MemberRequestDto.builder()
                                                         .name("member1")
                                                         .password("123")
                                                         .build();
@@ -40,7 +40,7 @@ class MemberServiceTest {
 //        Member member = Member.builder().name("member1").address(address).orders(null).build();
 //        Member member1 = Member.builder().name("member1").address(address).orders(null).build();
 //        //when
-//        memberService.join(member);
+//        memberService.join(member1);
 //
 //
 //        //예외가 발생해야된다.

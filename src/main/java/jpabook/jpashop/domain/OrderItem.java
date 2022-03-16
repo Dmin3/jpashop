@@ -32,7 +32,7 @@ public class OrderItem {
     public static OrderItem createOrderItem(Item item, int orderPrice, int count) {
         OrderItem orderItem = new OrderItem();
         orderItem.setItem(item);
-        orderItem.setOrderPrice(item.getPrice());
+        orderItem.setOrderPrice(item.getPrice() * count);
         orderItem.setCount(count);
 
         item.removeStock(count);

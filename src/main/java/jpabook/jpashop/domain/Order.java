@@ -1,15 +1,14 @@
 package jpabook.jpashop.domain;
 
 import lombok.*;
+import org.aspectj.weaver.ast.Or;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 @Entity
-@Getter
+@Getter @Setter
 @Table(name = "orders")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Order {
@@ -22,7 +21,7 @@ public class Order {
     @JoinColumn(name = "member_id")
     private Member member;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "order")
     private List<OrderItem> orderItems = new ArrayList<>();
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -34,32 +33,44 @@ public class Order {
     @Enumerated(EnumType.STRING)
     private OrderStatus status; // 주문상태 [ORDER, CANCEL]
 
+    //===========================================================//
+
     @Builder
-    public Order(Member member, Delivery delivery, OrderStatus status,LocalDateTime orderDate ,List<OrderItem> orderItems) {
+    private Order(Member member, Delivery delivery, OrderStatus status,LocalDateTime orderDate , List<OrderItem> orderItems) {
         this.member = member;
         this.delivery = delivery;
         this.status = status;
-        this.orderItems = orderItems;
         this.orderDate = orderDate;
+        this.orderItems = orderItems;
 
         //==연관관계 메소드==// 핵심적으로 컨트롤 하는 부분에 만들기(양방향 관계 일때)
         Delivery.builder().order(this).build();
-        OrderItem.builder().order(this).build();
-
+//        OrderItem.builder().order(this).build();
     }
+
+    //==연관관계 메소드==//
+    public void addOrderItem(OrderItem orderItem) {
+        this.orderItems.add(orderItem);
+        orderItem.setOrder(this);
+    }
+
 
     //==생성 메소드==//
     public static Order createOrder(Member member, Delivery delivery, OrderItem... orderItems) {
-        return builder()
-                .member(member)
-                .delivery(delivery)
-                .orderItems(Arrays.asList(orderItems))
-                .orderDate(LocalDateTime.now())
-                .status(OrderStatus.ORDER)
-                .build();
+        Order order = new Order();
+        order.setMember(member);
+        order.setDelivery(delivery);
+        order.setOrderDate(LocalDateTime.now());
+        order.setStatus(OrderStatus.ORDER);
+        for (OrderItem orderItem : orderItems) {
+            order.addOrderItem(orderItem);
+        }
+
+        return order;
+
     }
 
-    //==비즈니스 로직==//
+    /**비즈니스 로직**/
 
     //주문 취소
     public void cancel(){

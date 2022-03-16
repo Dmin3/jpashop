@@ -43,17 +43,4 @@ public class MemberApiController {
 
 
 
-
-    //장바구니 담기
-//    @PostMapping("/api/v1/orderItem/")
-//    public String orderItem(@PathVariable Long memberId, @RequestBody Long id) {
-//
-//        orderItemService.save(id,memberId);
-//
-//
-//        return "장바구니 추가 완료";
-//    }
-
-
-
 }

@@ -1,13 +1,12 @@
 package jpabook.jpashop.domain;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Delivery {
 
     @Id @GeneratedValue
@@ -24,7 +23,7 @@ public class Delivery {
     private DeliveryStatus status;
 
     @Builder
-    public Delivery(Order order, Address address, DeliveryStatus status) {
+    private Delivery(Order order, Address address, DeliveryStatus status) {
         this.order = order;
         this.address = address;
         this.status = status;

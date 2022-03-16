@@ -8,23 +8,21 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class MemberSaveRequestDto {
+public class MemberRequestDto {
 
     private String name;
     private String password;
     private String city;
     private String street;
     private String zip;
-//    private Address address;
 
     @Builder
-    public MemberSaveRequestDto(String name, String password) {
+    public MemberRequestDto(String name, String password) {
         this.name = name;
         this.password = password;
     }
 
     public Member toEntity() {
-//        this.address = new Address(this.city, this.street, this.zip);
         return Member.builder()
                 .name(name)
                 .password(password)

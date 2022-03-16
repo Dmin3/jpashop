@@ -5,7 +5,7 @@ import jpabook.jpashop.domain.item.Item;
 import jpabook.jpashop.domain.item.Phone;
 import jpabook.jpashop.domain.item.Tv;
 import jpabook.jpashop.repository.ItemRepository;
-import jpabook.jpashop.web.dto.ItemFindAllResponseDto;
+import jpabook.jpashop.web.dto.ItemDto;
 import jpabook.jpashop.web.dto.ItemSaveRequestDto;
 import jpabook.jpashop.web.dto.MemberItemAllFindResponseDto;
 import lombok.RequiredArgsConstructor;
@@ -62,9 +62,9 @@ public class ItemService {
         return null;
     }
 
-    public List<ItemFindAllResponseDto> findItems() {
+    public List<ItemDto> findItems() {
         List<Item> items = itemRepository.findAll();
-        List<ItemFindAllResponseDto> collect = items.stream().map(i -> new ItemFindAllResponseDto(i.getId(),i.getName(), i.getPrice(), i.getStockQuantity(), i.getCompany())).collect(Collectors.toList());
+        List<ItemDto> collect = items.stream().map(i -> new ItemDto(i.getId(),i.getName(), i.getPrice(), i.getStockQuantity(), i.getCompany())).collect(Collectors.toList());
         return collect;
     }
 
@@ -76,5 +76,24 @@ public class ItemService {
 
     public Item findOne(Long itemId) {
         return itemRepository.find(itemId);
+    }
+
+    @Transactional
+    public ItemDto update(Long id, ItemDto itemDto) {
+
+        Item item = itemRepository.find(id);
+        item.setName(itemDto.getName());
+        item.setPrice(itemDto.getPrice());
+        item.setCompany(itemDto.getCompany());
+        item.setStockQuantity(itemDto.getStockQuantity());
+
+        return new ItemDto(item.getId(), item.getName(), item.getPrice(), item.getStockQuantity(), item.getCompany());
+
+    }
+
+    @Transactional
+    public void delete(Long id) {
+        Item item = itemRepository.find(id);
+        itemRepository.remove(item);
     }
 }

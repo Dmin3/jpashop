@@ -22,7 +22,7 @@ public class Member extends BaseTImeEntity {
     @Embedded
     private Address address;
 
-    @OneToMany(mappedBy = "member") // 내가 연관관계 주인이야!
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL) // 내가 연관관계 주인이 아니야!
     private List<Order> orders = new ArrayList<>();
 
     @Builder

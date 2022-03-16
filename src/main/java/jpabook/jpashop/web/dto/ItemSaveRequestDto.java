@@ -13,7 +13,6 @@ public class ItemSaveRequestDto {
     private String name;
     private int price;
     private int stockQuantity;
-    private String etc;
     private String company;
     private String dtype;
 

@@ -6,8 +6,7 @@
     <div class="row mt-5">
         {{#item}}
         <div class="col-2">
-            <p hidden id="id">{{id}}</p>
-            <button type="button" class="m-3 p-4 btn btn-outline-dark btn-light btn-lg" data-toggle="modal" data-target="#exampleModal"><h1>{{name}}</h1></button>
+            <button type="button" class="m-3 p-4 btn btn-outline-dark btn-light btn-lg" data-toggle="modal" data-target="#exampleModal" data-test="{{id}}"><h1>{{name}}</h1></button>
         </div>
         {{/item}}
     </div>
@@ -27,7 +26,7 @@
                 <tr>
                     <th scope="row">{{id}}</th>
                     <td>{{name}}</td>
-                    <td>{{price}}</td>
+                    <td id="price">{{price}}</td>
                     <td>{{count}}</td>
                     <td>{{company}}</td>
                 </tr>
@@ -35,6 +34,7 @@
                 </tbody>
             </table>
         </div>
+    <div class="row mt-5">전체가격 : </div>
 </div>
 
 <!-- Modal -->
@@ -42,18 +42,19 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <p id="id" hidden></p>
                 <h5 class="modal-title">수량을 입력해주세요.</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <input type="number" id="count">
+                <label for="memberId">상품코드 : </label>
+                    <input type="number" id="memberId" readonly>
+                    <input type="number" id="count">
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
-                <button type="button" class="btn btn-primary" id="orderItem">주문하기</button>
+                <button type="button" class="btn btn-primary" id="btn-orderItem">주문하기</button>
             </div>
         </div>
     </div>

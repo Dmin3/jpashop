@@ -1,14 +1,14 @@
 var main = {
     init : function (){
         var _this = this;
-        $('#orderItem').on('click', function () {
+        $('#btn-orderItem').on('click', function () {
             _this.save();
         });
     },
 
     save : function () {
         var data = {
-            id : $('#id').val(),
+            id : $('#memberId').val(),
            count : $('#count').val()
         };
 
@@ -28,3 +28,10 @@ var main = {
 };
 
 main.init();
+
+// 모달창으로 데이터 받아오는 방법 data-target 사용
+$('#exampleModal').on('show.bs.modal', function(e){
+    var memberId = $(e.relatedTarget).data('test');
+    document.getElementById('memberId').value = memberId;
+});
+

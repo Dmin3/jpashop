@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 @Transactional(readOnly = true)
 public class OrderItemService {
 
-    public static final int COUNT = 1;
+
 
     private final OrderItemRepository orderItemRepository;
     private final ItemRepository itemRepository;
@@ -27,15 +27,16 @@ public class OrderItemService {
 
     public List<OrderItemDto> findAll() {
         List<OrderItem> orderItem = orderItemRepository.findAll();
+
         List<OrderItemDto> collect = orderItem.stream().map(oi -> new OrderItemDto(oi.getId(), oi.getItem().getName(), oi.getOrderPrice(), oi.getCount(), oi.getItem().getCompany())).collect(Collectors.toList());
         return collect;
     }
 
 
     @Transactional
-    public Long save(Long id) {
+    public Long save(Long id, int count) {
         Item item = itemRepository.find(id);
-        OrderItem orderItem = OrderItem.createOrderItem(item, item.getPrice(), COUNT);
+        OrderItem orderItem = OrderItem.createOrderItem(item, item.getPrice(), count);
         return orderItemRepository.save(orderItem);
     }
 }

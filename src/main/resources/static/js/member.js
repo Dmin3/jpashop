@@ -1,7 +1,7 @@
 var main = {
     init : function (){
         var _this = this;
-        $('#btn-save').on('click', function () {
+        $('#btn-memberSave').on('click', function () {
             _this.save();
         });
     },
@@ -17,13 +17,13 @@ var main = {
 
         $.ajax({
             type: 'POST',
-            url: '/api/v1/save',
+            url: '/api/v1/member-save',
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify(data)
         }).done(function (){
             alert('회원가입에 성공하셨습니다');
-            window.location.href = '/';
+            window.location.href = '/home';
         }).fail(function (error){
             alert(JSON.stringify(error));
         });

@@ -41,14 +41,13 @@ class OrderItemRepositoryTest {
         Member findMember = memberRepository.find(member.getId());
         Item findItem = itemRepository.find(item.getId());
 
-        OrderItem orderItem = OrderItem.createOrderItem(findMember, findItem, findItem.getPrice(), 2);
+        OrderItem orderItem = OrderItem.createOrderItem(findItem, findItem.getPrice(), 2);
         orderItemRepository.save(orderItem);
 
         OrderItem findOrderItem = orderItemRepository.find(orderItem.getId());
 
         //then
         assertEquals(2, orderItem.getCount());
-        assertEquals(findMember, orderItem.getMember());
         assertEquals(item.getPrice(), orderItem.getOrderPrice());
 
     }
